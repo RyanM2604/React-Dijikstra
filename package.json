@@ -1,0 +1,7 @@
+{
+  "scripts": {
+    "start:server": "cd server && source .venv/bin/activate && python app.py",
+    "start:client": "cd client && npm start",
+    "start": "npm-run-all --parallel start:server start:client"
+  }
+}

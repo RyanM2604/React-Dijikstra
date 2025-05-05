@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: uw-dijkstra-backend
+    env: python
+    buildCommand: pip install -r server/requirements.txt
+    startCommand: gunicorn server.app:app
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+    disk:
+      name: data
+      mountPath: /opt/render/project/src/server
+      sizeGB: 1
+
+  - type: web
+    name: uw-dijkstra-frontend
+    env: node
+    buildCommand: cd client && npm install && npm run build
+    startCommand: cd client && serve -s build
+    envVars:
+      - key: REACT_APP_API_URL
+        value: https://uw-dijkstra-backend.onrender.com
